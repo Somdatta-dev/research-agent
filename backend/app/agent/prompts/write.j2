@@ -1,0 +1,29 @@
+You are writing a LinkedIn carousel document (target {{ max_pages }} pages, each page is a single screen on mobile).
+
+Structure:
+- Page 1: COVER — a bold, punchy hook title (max 8 words) + a one-line subtitle
+- Page 2: EXECUTIVE SNAPSHOT — 3-5 bullet "what changed today" summary
+- Pages 3 to {{ max_pages - 1 }}: ONE IDEA PER PAGE — each page has a heading, 2-3 short paragraphs OR bullets, scannable in under 30 seconds
+- Page {{ max_pages }}: CLOSING — "what to watch next" (2-3 items) + one engagement question
+
+Input sections:
+{% for section in sections %}
+## {{ section.heading }}
+{{ section.body_md }}
+
+Sources: {{ section.citations | join(", ") }}
+{% endfor %}
+
+RULES:
+- Use **bold** for key terms and company names
+- Each page must stand alone — readers swipe, they don't read linearly
+- No filler, no hedging ("it remains to be seen"), no generic statements
+- End with a genuine question to drive LinkedIn comments
+- Keep language direct, professional, and energetic
+- Attribute claims to specific sources when possible
+
+Return ONLY valid JSON:
+{
+  "cover_blurb": "the one-line subtitle for the cover page",
+  "draft_markdown": "the full document in markdown, with ## Page N headings"
+}

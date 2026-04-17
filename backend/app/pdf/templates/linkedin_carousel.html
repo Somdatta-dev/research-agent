@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<section class="page cover">
+  <div class="cover-content">
+    <h1 class="cover-title">{{ config_name }}</h1>
+    <p class="cover-blurb">{{ cover_blurb }}</p>
+    <p class="cover-date">{{ now().strftime('%B %d, %Y') if now is defined else '' }}</p>
+  </div>
+</section>
+
+{% for section in sections %}
+<section class="page theme-page">
+  <h2 class="section-heading">{{ section.heading }}</h2>
+  <div class="section-body">{{ section.body_md }}</div>
+  {% if section.citations %}
+  <footer class="citations">
+    {% for url in section.citations %}
+    <a href="{{ url }}">{{ url | truncate(60) }}</a>
+    {% endfor %}
+  </footer>
+  {% endif %}
+</section>
+{% endfor %}
+
+<section class="page closing">
+  <h2>Sources &amp; References</h2>
+  <div class="section-body">
+    {% set all_citations = [] %}
+    {% for section in sections %}
+      {% for url in section.citations %}
+        {% if url not in all_citations %}
+          {% if all_citations.append(url) %}{% endif %}
+        {% endif %}
+      {% endfor %}
+    {% endfor %}
+    <ol>
+      {% for url in all_citations %}
+      <li><a href="{{ url }}">{{ url }}</a></li>
+      {% endfor %}
+    </ol>
+  </div>
+</section>
+
+</body>
+</html>
