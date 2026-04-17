@@ -1,4 +1,8 @@
 services:
+  web:
+    ports:
+      - "49731:80"
+
   api:
     environment:
       APP_ENV: development

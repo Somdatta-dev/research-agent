@@ -6,8 +6,6 @@ services:
       - api
     expose:
       - "80"
-    ports:
-      - "49731:80"
 
   api:
     build: ./backend
