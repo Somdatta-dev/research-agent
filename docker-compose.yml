@@ -4,6 +4,8 @@ services:
     restart: unless-stopped
     depends_on:
       - api
+    expose:
+      - "80"
     ports:
       - "49731:80"
 
